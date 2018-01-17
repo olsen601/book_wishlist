@@ -1,3 +1,5 @@
+import datetime
+
 class Book:
 
     ''' Represents one book in a user's list of books'''
@@ -10,7 +12,7 @@ class Book:
         self.author = author
         self.read = read
         self.id=id
-
+        # self.dateRead = dateRead
 
     def set_id(self, id):
         self.id = id
@@ -18,15 +20,16 @@ class Book:
 
     def __str__(self):
         read_str = 'no'
+        dateRead_str = "N/A"
         if self.read:
             read_str = 'yes'
-
+            dateRead_str = datetime.datetime.utcnow().strftime("%A, %B %d.")
         id_str = self.id
         if id == -1:
             id_str = '(no id)'
 
-        template = 'id: {} Title: {} Author: {} Read: {}'
-        return template.format(id_str, self.title, self.author, read_str)
+        template = 'id: {} Title: {} Author: {} Read: {} Date Read: {}'
+        return template.format(id_str, self.title, self.author, read_str, dateRead_str)
 
 
     def __eq__(self, other):
