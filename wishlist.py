@@ -1,6 +1,6 @@
 #Main program
 
-import ui, datastore
+import ui, datastore, datamanipulation
 from book import Book
 
 
@@ -40,7 +40,7 @@ def show_read():
 def book_read():
     ''' Get choice from user, edit datastore, display success/error'''
     book_id = ui.ask_for_book_id()
-    if datastore.set_read(book_id, True):
+    if datamanipulation.set_read(book_id, True):
         ui.message('Successfully updated')
     else:
         ui.message('Book id not found in database')
@@ -49,7 +49,7 @@ def book_read():
 def new_book():
     '''Get info from user, add new book'''
     new_book = ui.get_new_book_info()
-    datastore.add_book(new_book)
+    datamanipulation.add_book(new_book)
     ui.message('Book added: ' + str(new_book))
 
 

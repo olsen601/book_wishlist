@@ -1,5 +1,4 @@
-
-import os
+import os, datamanipulation
 from book import Book
 
 DATA_DIR = 'data'
@@ -44,14 +43,13 @@ def shutdown():
     try:
         os.mkdir(DATA_DIR)
     except FileExistsError:
-        pass # Ignore - if directory exists, don't need to do anything. 
+        pass # Ignore - if directory exists, don't need to do anything.
 
     with open(BOOKS_FILE_NAME, 'w') as f:
         f.write(output_data)
 
     with open(COUNTER_FILE_NAME, 'w') as f:
         f.write(str(counter))
-
 
 def get_books(**kwargs):
     ''' Return books from data store. With no arguments, returns everything. '''
@@ -65,38 +63,6 @@ def get_books(**kwargs):
         read_books = [ book for book in book_list if book.read == kwargs['read'] ]
         return read_books
 
-
-
-def add_book(book):
-    ''' Add to db, set id value, return Book'''
-
-    global book_list
-
-    book.id = generate_id()
-    book_list.append(book)
-
-
-def generate_id():
-    global counter
-    counter += 1
-    return counter
-
-
-def set_read(book_id, read):
-    '''Update book with given book_id to read. Return True if book is found in DB and update is made, False otherwise.'''
-
-    global book_list
-
-    for book in book_list:
-
-        if book.id == book_id:
-            book.read = True
-            return True
-
-    return False # return False if book id is not found
-
-
-
 def make_book_list(string_from_file):
     ''' turn the string from the file into a list of Book objects'''
 
@@ -106,9 +72,8 @@ def make_book_list(string_from_file):
 
     for book_str in books_str:
         data = book_str.split(separator)
-        book = Book(data[0], data[1], data[2] == 'True', int(data[3]))
+        book = Book(data[0], data[1], data[2] == 'True', data[3], int(data[4]))
         book_list.append(book)
-
 
 def make_output_data():
     ''' create a string containing all data on books, for writing to output file'''
@@ -118,10 +83,24 @@ def make_output_data():
     output_data = []
 
     for book in book_list:
-        output = [ book.title, book.author, str(book.read), str(book.id) ]
+        output = [ book.title, book.author, str(book.read), str(book.dateRead), str(book.id) ]
         output_str = separator.join(output)
         output_data.append(output_str)
 
     all_books_string = '\n'.join(output_data)
 
     return all_books_string
+
+def get_count():
+    '''Get the count of books'''
+
+    counter = len(book_list)
+
+    return counter
+
+def get_book_list():
+    '''Get the current book list'''
+
+    global book_list
+
+    return book_list
