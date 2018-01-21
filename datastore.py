@@ -37,6 +37,8 @@ def setup():
 def shutdown():
     '''Save all data to a file - one for books, one for the current counter value, for persistent storage'''
 
+    global counter
+
     output_data = make_output_data()
 
     # Create data directory
@@ -49,7 +51,7 @@ def shutdown():
         f.write(output_data)
 
     with open(COUNTER_FILE_NAME, 'w') as f:
-        f.write(str(counter))
+        f.write(str(get_count()))
 
 def get_books(**kwargs):
     ''' Return books from data store. With no arguments, returns everything. '''
@@ -93,6 +95,8 @@ def make_output_data():
 
 def get_count():
     '''Get the count of books'''
+
+    global counter
 
     counter = len(book_list)
 
