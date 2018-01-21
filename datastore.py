@@ -15,15 +15,6 @@ def setup():
 
     global counter
 
-    try :
-        with open(BOOKS_FILE_NAME) as f:
-            data = f.read()
-            make_book_list(data)
-    except FileNotFoundError:
-        # First time program has run. Assume no books.
-        pass
-
-
     try:
         with open(COUNTER_FILE_NAME) as f:
             try:
@@ -32,6 +23,15 @@ def setup():
                 counter = 0
     except:
         counter = len(book_list)
+
+    try :
+        with open(BOOKS_FILE_NAME) as f:
+            data = f.read()
+            if counter > 0:
+                make_book_list(data)
+    except FileNotFoundError:
+        # First time program has run. Assume no books.
+        pass
 
 
 def shutdown():
