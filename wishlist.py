@@ -18,12 +18,22 @@ def handle_choice(choice):
     elif choice == '4':
         new_book()
 
+    elif choice == '5':
+        remove_unread()
+
     elif choice == 'q':
         quit()
 
     else:
         ui.message('Please enter a valid selection')
 
+def remove_unread():
+    '''Fetch and remove book from wishlist'''
+
+    book_id = ui.ask_for_book_id()
+    for book in datastore.book_list:
+        if book_id == book_id and book.read == False:
+            datamanipulation.remove_book(book_id)
 
 def show_unread():
     '''Fetch and show all unread books'''

@@ -51,7 +51,7 @@ def shutdown():
         f.write(output_data)
 
     with open(COUNTER_FILE_NAME, 'w') as f:
-        f.write(str(get_count()))
+        f.write(str(counter))
 
 def get_books(**kwargs):
     ''' Return books from data store. With no arguments, returns everything. '''
@@ -92,15 +92,6 @@ def make_output_data():
     all_books_string = '\n'.join(output_data)
 
     return all_books_string
-
-def get_count():
-    '''Get the count of books'''
-
-    global counter
-
-    counter = len(book_list)
-
-    return counter
 
 def get_book_list():
     '''Get the current book list'''
