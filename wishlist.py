@@ -30,30 +30,18 @@ def handle_choice(choice):
 def handle_sort_choice(sort_choice):
 
     if sort_choice == '1':
-        sort_books_by_author()
+        ui.message("Sorted by autor: ")
 
     elif sort_choice == '2':
-        sort_books_by_title()
+        ui.message("Sorted by title: ")
 
     elif sort_choice == '3':
-        # quit()
         choice = ui.display_menu_get_choice()
         handle_choice(choice)
-
-
 
     else:
         ui.message('Please enter a valid selection')
 
-def sort_books_by_author():
-    '''Sort list of books by author'''
-    unread = datastore.get_books(read=False)
-    read = datastore.get_books(read=True)
-    
-    print('sorted by author')
-def sort_books_by_title():
-    '''Sort list of books by title'''
-    print('Sorted by title')
 def remove_unread():
     '''Fetch and remove book from wishlist'''
 
@@ -62,6 +50,12 @@ def remove_unread():
         if book_id == book_id and book.read == False:
             datastore.remove_book(book_id)
 
+def s_title(book):
+    return book.title
+
+def s_author(book):
+    return book.author
+
 def show_unread():
     '''Fetch and show all unread books'''
     unread = datastore.get_books(read=False)
@@ -69,7 +63,12 @@ def show_unread():
     if len(unread) > 0:
         sort_choice = ui.display_sort_options()
         handle_sort_choice(sort_choice)
-
+        if sort_choice == '1':
+            s_list = sorted(unread, key=s_author)
+            ui.show_list(s_list)
+        elif sort_choice == '2':
+            s_list = sorted(unread, key=s_title)
+            ui.show_list(s_list)
 
 def show_read():
     '''Fetch and show all read books'''
@@ -77,6 +76,12 @@ def show_read():
     ui.show_list(read)
     sort_choice = ui.display_sort_options()
     handle_sort_choice(sort_choice)
+    if sort_choice == '1':
+        s_list = sorted(read, key=s_author)
+        ui.show_list(s_list)
+    elif sort_choice == '2':
+        s_list = sorted(read, key=s_title)
+        ui.show_list(s_list)
 
 def book_read():
     ''' Get choice from user, edit datastore, display success/error'''
