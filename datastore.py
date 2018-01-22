@@ -44,7 +44,7 @@ def shutdown():
     try:
         os.mkdir(DATA_DIR)
     except FileExistsError:
-        pass # Ignore - if directory exists, don't need to do anything. 
+        pass # Ignore - if directory exists, don't need to do anything.
 
     with open(BOOKS_FILE_NAME, 'w') as f:
         f.write(output_data)
@@ -65,7 +65,17 @@ def get_books(**kwargs):
         read_books = [ book for book in book_list if book.read == kwargs['read'] ]
         return read_books
 
+def remove_book(book_id):
+    '''remove book from wishlist'''
+    global book_list
+    global counter
 
+    for book in book_list:
+
+        if book.id == book_id and book.read == False:
+            book_list.remove(book)
+            print(book.title, 'has been removed from your wishlist')
+            counter -= 1
 
 def add_book(book):
     ''' Add to db, set id value, return Book'''
