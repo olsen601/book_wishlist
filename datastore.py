@@ -74,7 +74,7 @@ def make_book_list(string_from_file):
 
     for book_str in books_str:
         data = book_str.split(separator)
-        book = Book(data[0], data[1], data[2] == 'True', data[3], int(data[4]))
+        book = Book(data[0], data[1], data[2] == 'True', data[3], data[4], int(data[5]))
         book_list.append(book)
 
 def make_output_data():
@@ -85,7 +85,7 @@ def make_output_data():
     output_data = []
 
     for book in book_list:
-        output = [ book.title, book.author, str(book.read), str(book.dateRead), str(book.id) ]
+        output = [ book.title, book.author, str(book.read), str(book.dateRead), str(book.rating), str(book.id) ]
         output_str = separator.join(output)
         output_data.append(output_str)
 

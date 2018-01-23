@@ -41,3 +41,23 @@ def set_read(book_id, read):
             return True
 
     return False # return False if book id is not found
+
+
+def set_rating(book_id, rating):
+    '''Update book with given book_id to read. Return True if book is found in DB and update is made, False otherwise.'''
+
+    global book_list
+
+    formated_rating = ""
+
+    for book in datastore.book_list:
+
+        if book.id == book_id and book.read == True:
+            if rating >= 0 and rating <= 5:
+                while rating > 0:
+                    formated_rating += "*"
+                    rating -= 1
+                book.rating = formated_rating
+                return True
+
+    return False # return False if book id is not found

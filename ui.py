@@ -11,6 +11,7 @@ def display_menu_get_choice():
         3. Mark a book as read
         4. Add book to wishlist
         5. Remove book from wishlist
+        6. Rate a book that has been read
         q. Quit
     ''')
 
@@ -43,6 +44,21 @@ def ask_for_book_id():
                 return id
             else:
                 print('Please enter a positive number ')
+        except ValueError:
+            print('Please enter an integer number')
+
+
+def ask_for_book_rating():
+
+    ''' Ask user for book rating, validate to ensure it is in range'''
+
+    while True:
+        try:
+            rating = int(input('Enter a rating from (dislike)0 to 5(enjoyed):'))
+            if rating >= 0 and rating <= 5:
+                return rating
+            else:
+                print('Please enter a positive number between zero and five ')
         except ValueError:
             print('Please enter an integer number')
 

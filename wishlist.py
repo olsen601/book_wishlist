@@ -21,19 +21,15 @@ def handle_choice(choice):
     elif choice == '5':
         remove_unread()
 
+    elif choice == '6':
+        rate_book()
+
     elif choice == 'q':
         quit()
 
     else:
         ui.message('Please enter a valid selection')
 
-def remove_unread():
-    '''Fetch and remove book from wishlist'''
-
-    book_id = ui.ask_for_book_id()
-    for book in datastore.book_list:
-        if book_id == book_id and book.read == False:
-            datamanipulation.remove_book(book_id)
 
 def show_unread():
     '''Fetch and show all unread books'''
@@ -61,6 +57,25 @@ def new_book():
     new_book = ui.get_new_book_info()
     datamanipulation.add_book(new_book)
     ui.message('Book added: ' + str(new_book))
+
+
+def remove_unread():
+    '''Fetch and remove book from wishlist'''
+
+    book_id = ui.ask_for_book_id()
+    for book in datastore.book_list:
+        if book_id == book_id and book.read == False:
+            datamanipulation.remove_book(book_id)
+
+def rate_book():
+    '''Get rating from user, edit datastore, display book with rating or error'''
+
+    book_id = ui.ask_for_book_id()
+    book_rating = ui.ask_for_book_rating()
+    if datamanipulation.set_rating(book_id, book_rating):
+        ui.message('Successfully updated')
+    else:
+        ui.message('Book id not found in database')
 
 
 def quit():
