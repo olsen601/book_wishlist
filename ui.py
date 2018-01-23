@@ -5,7 +5,7 @@ def display_sort_options():
     '''display choices to user to sort book list or return to main menu'''
 
     print ('''
-        1. Sort list by author
+        1. Sort list by Author
         2. Sort list by Title
         3. Return to main menu
     ''')

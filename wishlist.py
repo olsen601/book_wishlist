@@ -1,6 +1,6 @@
 #Main program
 
-import ui, datastore
+import ui, datastore, datamanipulation
 from book import Book
 
 
@@ -30,7 +30,7 @@ def handle_choice(choice):
 def handle_sort_choice(sort_choice):
 
     if sort_choice == '1':
-        ui.message("Sorted by autor: ")
+        ui.message("Sorted by author: ")
 
     elif sort_choice == '2':
         ui.message("Sorted by title: ")
@@ -48,7 +48,7 @@ def remove_unread():
     book_id = ui.ask_for_book_id()
     for book in datastore.book_list:
         if book_id == book_id and book.read == False:
-            datastore.remove_book(book_id)
+            datamanipulation.remove_book(book_id)
 
 def s_title(book):
     return book.title
@@ -74,19 +74,20 @@ def show_read():
     '''Fetch and show all read books'''
     read = datastore.get_books(read=True)
     ui.show_list(read)
-    sort_choice = ui.display_sort_options()
-    handle_sort_choice(sort_choice)
-    if sort_choice == '1':
-        s_list = sorted(read, key=s_author)
-        ui.show_list(s_list)
-    elif sort_choice == '2':
-        s_list = sorted(read, key=s_title)
-        ui.show_list(s_list)
+    if len(read) > 0:
+        sort_choice = ui.display_sort_options()
+        handle_sort_choice(sort_choice)
+        if sort_choice == '1':
+            s_list = sorted(read, key=s_author)
+            ui.show_list(s_list)
+        elif sort_choice == '2':
+            s_list = sorted(read, key=s_title)
+            ui.show_list(s_list)
 
 def book_read():
     ''' Get choice from user, edit datastore, display success/error'''
     book_id = ui.ask_for_book_id()
-    if datastore.set_read(book_id, True):
+    if datamanipulation.set_read(book_id, True):
         ui.message('Successfully updated')
     else:
         ui.message('Book id not found in database')
@@ -95,7 +96,7 @@ def book_read():
 def new_book():
     '''Get info from user, add new book'''
     new_book = ui.get_new_book_info()
-    datastore.add_book(new_book)
+    datamanipulation.add_book(new_book)
     ui.message('Book added: ' + str(new_book))
 
 
