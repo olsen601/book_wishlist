@@ -27,6 +27,31 @@ def handle_choice(choice):
     else:
         ui.message('Please enter a valid selection')
 
+
+def handle_sort_choice(sort_choice):
+
+    if sort_choice == '1':
+        ui.message("Sorted by author: ")
+
+    elif sort_choice == '2':
+        ui.message("Sorted by title: ")
+
+    elif sort_choice == '3':
+        choice = ui.display_menu_get_choice()
+        handle_choice(choice)
+
+    else:
+        ui.message('Please enter a valid selection')
+
+        
+def s_title(book):
+    return book.title
+
+  
+def s_author(book):
+    return book.author
+
+
 def remove_unread():
     '''Fetch and remove book from wishlist'''
 
@@ -35,17 +60,34 @@ def remove_unread():
         if book_id == book_id and book.read == False:
             datamanipulation.remove_book(book_id)
 
+
 def show_unread():
     '''Fetch and show all unread books'''
     unread = datastore.get_books(read=False)
     ui.show_list(unread)
-
+    if len(unread) > 0:
+        sort_choice = ui.display_sort_options()
+        handle_sort_choice(sort_choice)
+        if sort_choice == '1':
+            s_list = sorted(unread, key=s_author)
+            ui.show_list(s_list)
+        elif sort_choice == '2':
+            s_list = sorted(unread, key=s_title)
+            ui.show_list(s_list)
 
 def show_read():
     '''Fetch and show all read books'''
     read = datastore.get_books(read=True)
     ui.show_list(read)
-
+    if len(read) > 0:
+        sort_choice = ui.display_sort_options()
+        handle_sort_choice(sort_choice)
+        if sort_choice == '1':
+            s_list = sorted(read, key=s_author)
+            ui.show_list(s_list)
+        elif sort_choice == '2':
+            s_list = sorted(read, key=s_title)
+            ui.show_list(s_list)
 
 def book_read():
     ''' Get choice from user, edit datastore, display success/error'''

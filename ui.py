@@ -1,5 +1,18 @@
 from book import Book
 
+def display_sort_options():
+
+    '''display choices to user to sort book list or return to main menu'''
+
+    print ('''
+        1. Sort list by Author
+        2. Sort list by Title
+        3. Return to main menu
+    ''')
+
+    sort_choice = input('Enter your selection: ')
+
+    return sort_choice
 
 def display_menu_get_choice():
 
@@ -53,7 +66,7 @@ def get_new_book_info():
 
     title = input('Enter title: ')
     author = input('Enter author: ')
-    return Book(title, author)
+    return Book(title.title(), author.title())
 
 
 def message(msg):
