@@ -27,6 +27,7 @@ def setup():
     try :
         with open(BOOKS_FILE_NAME) as f:
             data = f.read()
+
             if counter > 0:
                 make_book_list(data)
     except FileNotFoundError:
@@ -72,10 +73,13 @@ def make_book_list(string_from_file):
 
     books_str = string_from_file.split('\n')
 
-    for book_str in books_str:
-        data = book_str.split(separator)
-        book = Book(data[0], data[1], data[2] == 'True', data[3], data[4], int(data[5]))
-        book_list.append(book)
+
+    if len(book_list) != 0:
+        for book_str in books_str:
+            data = book_str.split(separator)
+            book = Book(data[0], data[1], data[2] == 'True', data[3], data[4], int(data[5]))
+            book_list.append(book)
+            
 
 def make_output_data():
     ''' create a string containing all data on books, for writing to output file'''
