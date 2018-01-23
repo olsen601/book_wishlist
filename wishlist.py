@@ -21,15 +21,11 @@ def handle_choice(choice):
     elif choice == '5':
         remove_unread()
 
-    elif choice == '6':
-        rate_book()
-
     elif choice == 'q':
         quit()
 
     else:
         ui.message('Please enter a valid selection')
-
 
 def handle_sort_choice(sort_choice):
 
@@ -50,10 +46,16 @@ def handle_sort_choice(sort_choice):
 def s_title(book):
     return book.title
 
-
 def s_author(book):
     return book.author
 
+def remove_unread():
+    '''Fetch and remove book from wishlist'''
+
+    book_id = ui.ask_for_book_id()
+    for book in datastore.book_list:
+        if book_id == book_id and book.read == False:
+            datamanipulation.remove_book(book_id)
 
 def show_unread():
     '''Fetch and show all unread books'''
@@ -69,7 +71,6 @@ def show_unread():
             s_list = sorted(unread, key=s_title)
             ui.show_list(s_list)
 
-
 def show_read():
     '''Fetch and show all read books'''
     read = datastore.get_books(read=True)
@@ -84,7 +85,6 @@ def show_read():
             s_list = sorted(read, key=s_title)
             ui.show_list(s_list)
 
-
 def book_read():
     ''' Get choice from user, edit datastore, display success/error'''
     book_id = ui.ask_for_book_id()
@@ -96,28 +96,13 @@ def book_read():
 
 def new_book():
     '''Get info from user, add new book'''
+
     new_book = ui.get_new_book_info()
     datamanipulation.add_book(new_book)
-    ui.message('Book added: ' + str(new_book))
-
-
-def remove_unread():
-    '''Fetch and remove book from wishlist'''
-
-    book_id = ui.ask_for_book_id()
-    for book in datastore.book_list:
-        if book_id == book_id and book.read == False:
-            datamanipulation.remove_book(book_id)
-
-def rate_book():
-    '''Get rating from user, edit datastore, display book with rating or error'''
-
-    book_id = ui.ask_for_book_id()
-    book_rating = ui.ask_for_book_rating()
-    if datamanipulation.set_rating(book_id, book_rating):
-        ui.message('Successfully updated')
+    if new_book.id <= 0:
+        print('BOOK NOT ADDED TO WISHLIST')
     else:
-        ui.message('Book id not found in database')
+        ui.message('Book added: ' + str(new_book))
 
 
 def quit():
