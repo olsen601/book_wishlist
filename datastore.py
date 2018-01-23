@@ -64,6 +64,10 @@ def get_books(**kwargs):
         read_books = [ book for book in book_list if book.read == kwargs['read'] ]
         return read_books
 
+    if 'criteria' in kwargs:
+        search_result = [ book for book in book_list if book == kwargs[(str(criteria)] ]
+        return search_result
+
 def make_book_list(string_from_file):
     ''' turn the string from the file into a list of Book objects'''
 

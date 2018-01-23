@@ -24,6 +24,9 @@ def handle_choice(choice):
     elif choice == '6':
         rate_book()
 
+    elif choice == '7':
+        search()
+
     elif choice == 'q':
         quit()
 
@@ -83,6 +86,12 @@ def show_read():
         elif sort_choice == '2':
             s_list = sorted(read, key=s_title)
             ui.show_list(s_list)
+
+def search():
+    '''Fetch and show books containg users search string'''
+    criteria = ui.ask_for_search_criteria()
+    find = datastore.get_books(criteria=str(criteria))
+    ui.show_list(find)
 
 
 def book_read():

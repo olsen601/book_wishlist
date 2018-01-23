@@ -25,6 +25,7 @@ def display_menu_get_choice():
         4. Add book to wishlist
         5. Remove book from wishlist
         6. Rate a book that has been read
+        7. Search for a book
         q. Quit
     ''')
 
@@ -74,6 +75,13 @@ def ask_for_book_rating():
                 print('Please enter a positive number between zero and five ')
         except ValueError:
             print('Please enter an integer number')
+
+
+def ask_for_search_criteria():
+
+    ''' Get search criteria to find books'''
+    criteria = input('Enter a search term: ')
+    return criteria
 
 
 def get_new_book_info():
