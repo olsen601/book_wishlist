@@ -90,7 +90,7 @@ def show_read():
 def search():
     '''Fetch and show books containg users search string'''
     criteria = ui.ask_for_search_criteria()
-    find = datastore.get_books(criteria=str(criteria))
+    find = datastore.get_books(find=criteria)
     ui.show_list(find)
 
 
