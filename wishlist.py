@@ -46,11 +46,11 @@ def handle_sort_choice(sort_choice):
     else:
         ui.message('Please enter a valid selection')
 
-        
+
 def s_title(book):
     return book.title
 
-  
+
 def s_author(book):
     return book.author
 
@@ -69,7 +69,7 @@ def show_unread():
             s_list = sorted(unread, key=s_title)
             ui.show_list(s_list)
 
-            
+
 def show_read():
     '''Fetch and show all read books'''
     read = datastore.get_books(read=True)
@@ -84,7 +84,7 @@ def show_read():
             s_list = sorted(read, key=s_title)
             ui.show_list(s_list)
 
-            
+
 def book_read():
     ''' Get choice from user, edit datastore, display success/error'''
     book_id = ui.ask_for_book_id()
