@@ -27,7 +27,8 @@ def setup():
     try :
         with open(BOOKS_FILE_NAME) as f:
             data = f.read()
-            if counter >0:
+            
+            if counter > 0:
                 make_book_list(data)
     except FileNotFoundError:
         # First time program has run. Assume no books.

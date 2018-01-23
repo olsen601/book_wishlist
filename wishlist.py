@@ -27,6 +27,7 @@ def handle_choice(choice):
     else:
         ui.message('Please enter a valid selection')
 
+
 def handle_sort_choice(sort_choice):
 
     if sort_choice == '1':
@@ -42,6 +43,15 @@ def handle_sort_choice(sort_choice):
     else:
         ui.message('Please enter a valid selection')
 
+        
+def s_title(book):
+    return book.title
+
+  
+def s_author(book):
+    return book.author
+
+
 def remove_unread():
     '''Fetch and remove book from wishlist'''
 
@@ -50,11 +60,6 @@ def remove_unread():
         if book_id == book_id and book.read == False:
             datamanipulation.remove_book(book_id)
 
-def s_title(book):
-    return book.title
-
-def s_author(book):
-    return book.author
 
 def show_unread():
     '''Fetch and show all unread books'''
